@@ -2,7 +2,7 @@
 
 ## What is this?
 
-This is a Django-based Task Manager application that allows users to create, update, delete, and view tasks. It also includes features for filtering and sorting tasks, as well as providing smart task suggestions based on existing tasks (smart suggestions is unfortunately not finished).
+This is a Django-based Task Manager application that allows users to create, update, delete, and view tasks. It also includes features for filtering and sorting tasks, as well as providing smart task suggestions based on existing tasks (smart suggestions is unfortunately not finished). It also has a simple UI to showcase the functionalities.
 
 ## How to run
 1. **Install dependencies:**
