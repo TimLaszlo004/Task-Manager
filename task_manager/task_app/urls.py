@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from .views import smart_task_suggestions
 
 urlpatterns = [
     path("", views.TaskListView.as_view(), name="index"),
@@ -19,4 +19,5 @@ urlpatterns = [
         views.TaskDelete.as_view(),
         name="task-delete",
     ),
+    path('smart-suggestions/', smart_task_suggestions, name='smart_task_suggestions'),
 ]

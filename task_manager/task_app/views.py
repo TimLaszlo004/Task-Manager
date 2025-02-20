@@ -3,6 +3,8 @@ from django.urls import reverse, reverse_lazy
 from .models import Task
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+from django.http import JsonResponse
+from django.db.models import Count
 
 class TaskListView(ListView):
     model = Task
@@ -22,6 +24,8 @@ class TaskListView(ListView):
         
         if sort_val:
             queryset = queryset.order_by(sort_val)
+        else:
+            queryset = queryset.order_by('title')
         
         return queryset
 
@@ -93,3 +97,17 @@ class TaskDelete(DeleteView):
     def get_context_data(self, **kwargs):
         context = super(TaskDelete, self).get_context_data()
         return context
+
+def smart_task_suggestions(request):
+    similar_tasks = Task.objects.values('title').annotate(count=Count('title')).order_by('-count')[:5]
+    similar_suggestions = [task['title'] for task in similar_tasks]
+
+    completed_tasks = Task.objects.filter(status='completed').values('title').annotate(count=Count('title')).order_by('-count')[:5]
+    completed_suggestions = [task['title'] for task in completed_tasks]
+
+    suggestions = {
+        'similar_tasks': similar_suggestions,
+        'completed_tasks': completed_suggestions,
+    }
+
+    return JsonResponse(suggestions)

@@ -19,6 +19,8 @@
             <label for="sort">Sort by:</label>
             <select name="sort" id="sort">
                 <option value="">None</option>
+                <option value="title" {% if sort == "title" %}selected{% endif %}>Title Ascending</option>
+                <option value="-title" {% if sort == "-title" %}selected{% endif %}>Title Descending</option>
                 <option value="created_at" {% if sort == "created_at" %}selected{% endif %}>Creation Date Ascending</option>
                 <option value="-created_at" {% if sort == "-created_at" %}selected{% endif %}>Creation Date Descending</option>
                 <option value="due_at" {% if sort == "due_at" %}selected{% endif %}>Due Date Ascending</option>
@@ -32,8 +34,7 @@
                 <div>
                     <div
                         role="button"
-                        onclick="location.href=
-                        '{% url "task-update"  todo.id %}'">
+                        onclick="location.href= '{% url "task-update"  todo.id %}'">
                         {{ todo.title }}
                         (Due {{ todo.due_at }})
                     </div>
